@@ -3,8 +3,6 @@
 ### required python libraries
 
 * pymssql
-* configparser
-* os
 * flask
 
 ### running on linux
