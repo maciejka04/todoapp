@@ -1,0 +1,9 @@
+drop table To_do_app
+
+create table To_do_app 
+(
+task_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+task_name VARCHAR(30) NOT NULL,
+task_priority INT NOT NULL,
+task_time DATETIME DEFAULT (GETDATE()) NOT NULL
+)

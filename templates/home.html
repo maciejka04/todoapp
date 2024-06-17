@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='todo.png') }}" alt="OpiAs obrazka" style="width: 500px; height: auto;" class="image">
+        <form action="/" method="POST">
+            <label for="task_name"><b>Task Name:</b></label>
+            <input type="text" id="task_name" name="task_name" required>
+            <label for="task_priority"><b>Task Priority:</b></label>
+            <select id="task_priority" name="task_priority">
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+            <button type="submit">Add Task</button>
+        </form>
+        
+        {% if last_task %}
+        <div class="latest-task">
+            <h2>Latest Task:</h2>
+            <p><b>Name:</b> {{ last_task[1] }}</p>
+            <p><b>Priority:</b> {{ last_task[2] }}</p>
+			<p><b>Task Time:</b> {{ last_task[3] }}</p>
+        </div>
+        {% endif %}
+		
+		<form action="/highest_priority_tasks" method="GET">
+			<button type="submit">Show Highest Priority Tasks </button>
+		</form>
+		
+        {% if highest_priority_tasks %}
+		<div class="highest-priority-tasks">
+			<table>
+                <tr><h2>Highest priority tasks: {{ highest_priority_count }}</h2></tr>
+					{% for task in highest_priority_tasks %}
+					<tr>
+						<td>{{ task[1] }}</td>
+					</tr>
+					{% endfor %}
+			</table>
+		</div>
+        {% endif %}
+
+		<div>
+            <form>
+                <input type="text" name="search" {% if search %} value="{{search}}" {% endif %}>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+		<div class="all-tasks">
+            <table>
+                <tr>
+                    <h3>All Tasks: {{ total_tasks_count }}</h3>
+                </tr>
+                {% for task in all_tasks %}
+                <tr>  <th>Name: {{ task[1] }},	Priority:  {{ task[2] }} </th>	
+					<td><form action="/delete/{{ task[0] }}" method="POST">
+						<button type="submit">Remove</button>
+					</form>
+                    </td>
+                    <td>
+                    <form action="/edit/{{ task[0] }}" method="GET">
+						<button type="submit">Edit</button>
+					</form>
+                    </td>
+				</tr>
+                {% endfor %}
+        </table>
+        </div>
+    </div>
+</body>
+</html>
