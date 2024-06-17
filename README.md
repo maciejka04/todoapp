@@ -1,5 +1,5 @@
 # TO DO APP 
-
+Connection to the database is only possible from a computer in the LABS domain. Access from outside the Department can be obtained using a terminal server or by connecting via VPN
 ### required python libraries
 
 * pymssql
